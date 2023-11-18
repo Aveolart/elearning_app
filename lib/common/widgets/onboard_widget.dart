@@ -1,12 +1,13 @@
-import 'package:elearning_app/common/utils/app_colors.dart';
 import 'package:elearning_app/common/widgets/app_shadow.dart';
 import 'package:elearning_app/common/widgets/text_widgets.dart';
 import 'package:flutter/material.dart';
 
-Widget onboardingWidget({
+Widget onboardingWidget(
+  PageController controller, {
   required String imagepath,
   String title = "",
   String subtitle = "",
+  int index = 0,
 }) {
   return Column(
     children: [
@@ -26,14 +27,20 @@ Widget onboardingWidget({
         ),
         child: text16Normal(text: subtitle),
       ),
-      _nextButton()
+      _nextButton(index, controller)
     ],
   );
 }
 
-Widget _nextButton() {
+Widget _nextButton(int index, PageController controller) {
   return GestureDetector(
-    onTap: (){},
+    onTap: () {
+      if (index < 3) {
+        controller.animateToPage(index,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.bounceIn);
+      }
+    },
     child: Container(
       width: 325,
       height: 50,
